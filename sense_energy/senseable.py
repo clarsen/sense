@@ -48,7 +48,7 @@ class Senseable(SenseableBase):
         ws = 0
         url = WS_URL % (self.sense_monitor_id, self.sense_access_token)
         try:
-            ws = create_connection(url, timeout=self.wss_timeout)
+            ws = create_connection(url, timeout=self.wss_timeout, sslopt={'ciphers': 'DEFAULT@SECLEVEL=1'})
             while True: # hello, features, [updates,] data
                 result = json.loads(ws.recv())
                 if result.get('type') == 'realtime_update':
